@@ -17,7 +17,7 @@
 ## Built With:
 - Flask: Python Web Framework.
 ## Author:
-## Tyler Parton: HobbyHub <a href: https://www.linkedin.com/in/tylerpar99/ > Linkedin </a>
+## Tyler Parton: HobbyHub <a href="https://www.linkedin.com/in/tylerpar99/"> Linkedin </a>
 ## Acknowledgments:
 ### If you find code that you are going to use in YourProjectName, include author's name and URL here.
 all who inspired the idea and/or the code in YourProjectName
