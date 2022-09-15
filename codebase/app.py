@@ -10,7 +10,7 @@ def welcomePage():
 
 @app.route("/loginPage")
 def logInPage():
-    return render_template("loginPage.html")
+    return render_template("logInPage.html")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
