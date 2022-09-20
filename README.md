@@ -26,9 +26,9 @@
    - P1: Database to safely store user information and clubs, log in ability, create an account, create a group/join a group, have access to video chat, text chats.
    - P2: Attach Fees, choose club format (Text, video, image based), Add logo.
    - P3: Find clubs based on language spoken or common interests, integrate with audible for book clubs. Allow liking and saving for image based clubs. Expand video chatting capabilities.
-
-
-- Requirement revision history: (when, what, and why)
+   - Requirement revision history: (when, what, and why)
+## Design:
+   <a href="https://github.com/tylerpar99/csc493-partont/blob/main/R04.design.md">Click Here</a>
 ## Built With:
 - Flask: Python Web Framework.
 ## Author:
