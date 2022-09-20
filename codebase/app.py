@@ -12,6 +12,10 @@ def welcomePage():
 def logInPage():
     return render_template("logInPage.html")
 
+@app.route("/createAccount")
+def createAccount():
+    return render_template("registrationPage.html")
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 

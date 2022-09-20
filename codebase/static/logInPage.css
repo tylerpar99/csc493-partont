@@ -1,8 +1,4 @@
-body{
-  background-image: url("images/background(NoLogo).png");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.matchBG {
+body {
   background-color: #080B09;
+  font-family: Raleway;
 }
