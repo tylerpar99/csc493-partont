@@ -1,36 +1,61 @@
-from flask import Flask, render_template
+import os
+from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
-
-
+from sqlalchemy.sql import func
+from peewee import *
 app = Flask(__name__)
 
 @app.route("/")
 def welcomePage():
     return render_template("index.html")
 
-@app.route("/loginPage")
+@app.route("/loginPage", methods=['GET', 'POST'])
 def logInPage():
-    return render_template("logInPage.html")
+    if request.method == 'POST':
+        login = request.form
+        try:
+            print("trying")
+            Userlogin = User.select().where(User.email == login.get('email'), User.password == login.get('password')).get()
+            print("looking for user", Userlogin.fname)
+            return ("Welcome back " + Userlogin.fname + " " + Userlogin.lname)
 
-@app.route("/createAccount")
+        except:
+            return "This password and email combination do not exist."
+
+    else:
+        return render_template("logInPage.html")
+
+@app.route("/createAccount", methods=['GET', 'POST'])
 def createAccount():
-    return render_template("registrationPage.html")
+    if request.method == 'POST':
+        print("I can't believe this works!")
+        data = request.form
+        print(data.get('fname'))
+        if User.get_or_none(User.email == data.get('email')):
+            return "User already Exists"
+        else:
+            userRegister = User.create(username=data.get('uname'), fname=data.get('fname'), lname=data.get('lname'), email=data.get('email'), password=data.get('password'))
+        if User.get_or_none(User.username == data.get('uname')):
+            return render_template("logInPage.html")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
 
-class Profile(db.Model):
-    # Id : Field which stores unique id for every row in
-    # database table.
-    # first_name: Used to store the first name if the user
-    # last_name: Used to store last name of the user
-    # Age: Used to store the age of the user
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(20), unique=False, nullable=False)
-    last_name = db.Column(db.String(20), unique=False, nullable=False)
-    age = db.Column(db.Integer, nullable=False)
+    else:
+        return render_template("registrationPage.html")
 
-    # repr method represents how one object of this datatable
-    # will look like
-    def __repr__(self):
-        return f"Name : {self.first_name}, Age: {self.age}"
+
+###################DATABASE#########################################
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+db = MySQLDatabase('hobbyconnect', host='localhost', port=3306, user='partont', password='Relyteel99!')
+
+class User(Model):
+   username=TextField(120)
+   fname=TextField(120)
+   lname=TextField(120)
+   email=TextField(120)
+   password=TextField(120)
+   class Meta:
+      database=db
+      db_table='User'
+db.connect()
+db.create_tables([User])
