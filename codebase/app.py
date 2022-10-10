@@ -17,7 +17,7 @@ def logInPage():
             print("trying")
             Userlogin = User.select().where(User.email == login.get('email'), User.password == login.get('password')).get()
             print("looking for user", Userlogin.fname)
-            return ("Welcome back " + Userlogin.fname + " " + Userlogin.lname)
+            return render_template("landingPage.html")
 
         except:
             return "This password and email combination do not exist."
