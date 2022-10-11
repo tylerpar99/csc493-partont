@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, g
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 from peewee import *
@@ -16,14 +16,19 @@ def logInPage():
         try:
             print("trying")
             Userlogin = User.select().where(User.email == login.get('email'), User.password == login.get('password')).get()
-            print("looking for user", Userlogin.fname)
-            return render_template("landingPage.html")
+            g.user=Userlogin
+            return redirect("/home")
 
         except:
             return "This password and email combination do not exist."
 
     else:
         return render_template("logInPage.html")
+
+@app.route('/home', methods=['GET', 'POST'])
+def landingPage():
+    print(g.user.fname)
+    return render_template("landingPage.html", user=g.user)
 
 @app.route("/createAccount", methods=['GET', 'POST'])
 def createAccount():

@@ -9,37 +9,94 @@
     <title>Hobby Connect</title>
   </head>
   <body class="">
-    <nav class="navbar navbar-expand-lg navbar-dark matchBG">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Hobby Connect</a>
+    <a class="navbar-brand" href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+        <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+        <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+      </svg></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="#">Live</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/loginPage">Log In</a>
+          <a class="nav-link" href="#">All Clubs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/createAccount">Register</a>
+          <a class="nav-link align-right" href="#">My Clubs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link align-right" href="#">My Profile</a>
         </li>
       </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
   </div>
 </nav>
-<div id="carouselExampleControls" class="carousel slide h-25" data-bs-ride="carousel">
+<div id="carouselExampleControls" data-bs-interval="10000" class="carousel slide" data-bs-ride="carousel">
 <div class="carousel-inner">
   <div class="carousel-item active">
-    <img src="../static/images/Welcome!.png" class="d-block w-100 img-fluid" alt="Welcome to Hobby Connect!">
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="../static/images/HobbyConnectLanding.png" class="img-fluid rounded-start" alt="HC">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Welcome to Hobby Connect {{user.fname}} {{user.lname}}!</h5>
+              <p class="card-text"> Here at Hobby Connect we are all about "Bringing the world together". We are sure glad you decided to be apart of this mission.
+                                    Feel free to browse around for groups and clubs you would like to join and if you have any questions we will be right here to
+                                    help you along the way!</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="carousel-item">
-    <img src="..." class="d-block w-100" alt="...">
+    <div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="../static/images/safetyLanding.png" class="img-fluid rounded-start" alt="SAFETY">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body"><strong>Stay Safe!</strong></h5>
+        <p class="card-text">  While browsing and socializing online it is important to protect yourself. For your protection we will never share
+                             your name or personal information. Any member you interact with will simply see your name as <strong>{{user.username}}</strong>. For
+                             your safety we also ask that you do not share your address with anyone you meet online, if you have any issues with another
+                             member that puts your safety or comfort as a Hobby Connect member in jeapordy simply copy down their username and fill out
+                             report, you can find this feature on your user profile under "Contact Us".</p>
+      </div>
+    </div>
+  </div>
+</div>
   </div>
   <div class="carousel-item">
-    <img src="..." class="d-block w-100" alt="...">
+    <div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="../static/images/NewLanding.png" class="img-fluid rounded-start" alt="NEW">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">What's New?</h5>
+        <p class="card-text"><strong>Update 1.2</strong> Release Notes: This week we have offically launched our overwatch feature for parents. If you have a child
+                             who would like to be a member of Hobby Connect but you aren't quite sure how to keep him safe our overwatch feature in
+                             is here to help. With this feature parents can now monitor any chat or club their child joins. <strong>We will too!</strong>
+                             If we see any activity that may compromise a childs safety we will alert the parent in real time, you are then able to report
+                             activity to Hobby Connect and we will react accordingly.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 days ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
   </div>
 </div>
 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
