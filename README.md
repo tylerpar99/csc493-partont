@@ -18,7 +18,7 @@ Project Logo:
 ## Vision:
   I want to create an application where everyone can come and hang out with their peers and meet regarding commone interets. I hope that people can get to know one another no matter where they are at in their country or where they are at in the world. If you love motorcycles why not meet someone who loves them too. If you have accessebility issues or just plain don't like traveling to engage in your hobby then hop on my webiste and meet new friends. Group creators and create merch for there club or charge fees to afford supplies. Everyone at any age can meet and hang out safely and securely on my website. 
 ## Prerequisites:
-## I will need, flask framework, python 3.10, JavaScript, HTML/CSS, bootstrap, dynamic website server, a database (MySQL).
+I will need, flask framework, python 3.10, JavaScript, HTML/CSS, bootstrap, dynamic website server, a database (MySQL).
 ## Requirments
 - Number: Web app =1 , pages = TBD
 - Statement: My application will allow users to create an account, log in, and create a group or join a group and begin to meet friends.
@@ -35,6 +35,8 @@ Project Logo:
 - Flask: Python Web Framework.
 ## Author:
 ## Tyler Parton: Hobby Connect <a href="https://www.linkedin.com/in/tylerpar99/"> LinkedIn </a>
+###Lead Developer:
+    Tyler Parton is Web developer/Product Manger who is passionate about all things Software. Having worked in UI Design, Web and Software Development, and Product Mangement Tyler has a variety of expiriences that allow him to jump into any stage of Software Development and be an efficient contributor. Currently in his Senior year at Berea College as a Computer Science Major Tyler would love the oppurtunity to join an efficient and fun team.
 ## Acknowledgments:
 ### If you find code that you are going to use in YourProjectName, include author's name and URL here.
 all who inspired the idea and/or the code in YourProjectName
