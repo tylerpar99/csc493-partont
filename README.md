@@ -35,7 +35,7 @@ I will need, flask framework, python 3.10, JavaScript, HTML/CSS, bootstrap, dyna
 - Flask: Python Web Framework.
 ## Author:
 ## Tyler Parton: Hobby Connect <a href="https://www.linkedin.com/in/tylerpar99/"> LinkedIn </a>
-###Lead Developer:
+### Lead Developer:
     Tyler Parton is Web developer/Product Manger who is passionate about all things Software. Having worked in UI Design, Web and Software Development, and Product Mangement Tyler has a variety of expiriences that allow him to jump into any stage of Software Development and be an efficient contributor. Currently in his Senior year at Berea College as a Computer Science Major Tyler would love the oppurtunity to join an efficient and fun team.
 ## Acknowledgments:
 ### If you find code that you are going to use in YourProjectName, include author's name and URL here.
