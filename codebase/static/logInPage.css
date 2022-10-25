@@ -1,4 +1,7 @@
 body {
-  background-color: white;
+  background-image: url("images/loginBG.png");
+  background-color: #FFFFFF;
   font-family: Raleway;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

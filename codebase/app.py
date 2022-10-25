@@ -1,10 +1,13 @@
 import os
+from datetime import date
+from dateutil import parser
 from flask import Flask, render_template, request, url_for, redirect, g
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 from peewee import *
-app = Flask(__name__)
 
+app = Flask(__name__)
+currentUser = None
 @app.route("/")
 def welcomePage():
     return render_template("index.html")
@@ -16,7 +19,10 @@ def logInPage():
         try:
             print("trying")
             Userlogin = User.select().where(User.email == login.get('email'), User.password == login.get('password')).get()
-            g.user=Userlogin
+            print("Found user")
+            global currentUser
+            currentUser = Userlogin
+            print(currentUser.fname)
             return redirect("/home")
 
         except:
@@ -27,8 +33,18 @@ def logInPage():
 
 @app.route('/home', methods=['GET', 'POST'])
 def landingPage():
-    print(g.user.fname)
-    return render_template("landingPage.html", user=g.user)
+    print(currentUser)
+    liveClubs = Club.select().where(Club.active)
+    updates = Updates.select().order_by(Updates.date.desc()).get()
+    print(updates.date)
+    currentDate = parser.parse(date.today())
+    updateDate = parser.parse(updates.date)
+
+    if currentDate - updateDate > 1:
+        lastUpdated = currentDate - updateDate
+    else:
+        lastUpdated = None
+    return render_template("landingPage.html", user=currentUser, liveClubs=liveClubs, updates=updates, lastUpdated = lastUpdated)
 
 @app.route("/createAccount", methods=['GET', 'POST'])
 def createAccount():
@@ -62,5 +78,28 @@ class User(Model):
    class Meta:
       database=db
       db_table='User'
+
+class Club(Model):
+   name=TextField(120)
+   topic=TextField(120)
+   logo=BlobField()
+   free=BooleanField(default=True)
+   lastActive=DateTimeField()
+   active=BooleanField(default=False)
+   class Meta:
+      database=db
+      db_table='Club'
+
+class Updates(Model):
+   title=TextField(120)
+   version=TextField(120)
+   description=TextField()
+   date=DateField()
+   class Meta:
+      database=db
+      db_table='Updates'
+
 db.connect()
 db.create_tables([User])
+db.create_tables([Club])
+db.create_tables([Updates])
