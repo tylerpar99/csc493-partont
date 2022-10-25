@@ -31,6 +31,8 @@ I will need, flask framework, python 3.10, JavaScript, HTML/CSS, bootstrap, dyna
    - Requirement revision history: (when, what, and why)
 ## Design:
    <a href="https://github.com/tylerpar99/csc493-partont/blob/main/R04.design.md">Click Here</a>
+## Testing plan:
+   <a href="https://github.com/tylerpar99/csc493-partont/blob/main/R09.testing.plan.md">Click Here</a>
 ## Built With:
 - Flask: Python Web Framework.
 ## Author:
