@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Live</a>
+          <a class="nav-link active" aria-current="page" href="landingPage">Live</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">All Clubs</a>
@@ -32,12 +32,11 @@
           <a class="nav-link align-right" href="#">My Clubs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link align-right" href="#">My Profile</a>
+          <a class="nav-link align-right" href="/hc/myProfile">My Profile</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="d-flex" action="/logout" method="POST">
+        <button class="btn btn-danger" type="submit">Log Out</button>
       </form>
     </div>
   </div>

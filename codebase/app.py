@@ -25,17 +25,19 @@ def logInPage():
 
         except:
             return "This password and email combination do not exist."
-
     else:
         return render_template("logInPage.html")
 
 @app.route('/home', methods=['GET', 'POST'])
 def landingPage():
-    liveClubs = Club.select().where(Club.active)
-    updates = Updates.select().order_by(Updates.date.desc()).get()
-    lastUpdated = getTodayDifference(updates.date)
-
-    return render_template("landingPage.html", user=currentUser, liveClubs=liveClubs, updates=updates, lastUpdated = lastUpdated)
+    print(currentUser)
+    if currentUser:
+        print("Passed")
+        liveClubs = Club.select().where(Club.active)
+        updates = Updates.select().order_by(Updates.date.desc()).get()
+        lastUpdated = getTodayDifference(updates.date)
+        return render_template("landingPage.html", user=currentUser, liveClubs=liveClubs, updates=updates, lastUpdated = lastUpdated)
+    return "Access Denied"
 
 @app.route("/createAccount", methods=['GET', 'POST'])
 def createAccount():
@@ -53,6 +55,17 @@ def createAccount():
 
     else:
         return render_template("registrationPage.html")
+
+@app.route("/hc/myProfile", methods=['GET', "POST"])
+def myAccount():
+    print("On page")
+    return render_template("/userProfile.html", currentUser=currentUser)
+
+@app.route("/logout", methods=['GET', 'POST'])
+def logOut():
+    global currentUser
+    currentUser = None
+    return redirect("/")
 
 
 ###################DATABASE#########################################
