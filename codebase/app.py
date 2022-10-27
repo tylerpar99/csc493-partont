@@ -1,10 +1,10 @@
 import os
 from datetime import date
-from dateutil import parser
 from flask import Flask, render_template, request, url_for, redirect, g
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 from peewee import *
+from controller.dateLogic import getTodayDifference
 
 app = Flask(__name__)
 currentUser = None
@@ -17,9 +17,7 @@ def logInPage():
     if request.method == 'POST':
         login = request.form
         try:
-            print("trying")
             Userlogin = User.select().where(User.email == login.get('email'), User.password == login.get('password')).get()
-            print("Found user")
             global currentUser
             currentUser = Userlogin
             print(currentUser.fname)
@@ -33,17 +31,10 @@ def logInPage():
 
 @app.route('/home', methods=['GET', 'POST'])
 def landingPage():
-    print(currentUser)
     liveClubs = Club.select().where(Club.active)
     updates = Updates.select().order_by(Updates.date.desc()).get()
-    print(updates.date)
-    currentDate = parser.parse(date.today())
-    updateDate = parser.parse(updates.date)
+    lastUpdated = getTodayDifference(updates.date)
 
-    if currentDate - updateDate > 1:
-        lastUpdated = currentDate - updateDate
-    else:
-        lastUpdated = None
     return render_template("landingPage.html", user=currentUser, liveClubs=liveClubs, updates=updates, lastUpdated = lastUpdated)
 
 @app.route("/createAccount", methods=['GET', 'POST'])
