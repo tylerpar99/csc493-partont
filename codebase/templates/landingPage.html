@@ -87,7 +87,7 @@
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">What's New?</h5>
-        <p class="card-text"><strong>{{updates.version}} : {{updates.title}} </strong>{{updates.description}}</p>
+        <p class="card-text"><strong>{{updates.version}} : {{updates.title}}</strong> {{updates.description}}</p>
       {% if lastUpdated %}
         <p class="card-text"><small class="text-muted">Last updated {{lastUpdated}} days ago.</small></p>
       {% else %}
@@ -110,20 +110,14 @@
 </div>
 <div class="row">
 {% for club in liveClubs %}
-  <div class="col-2">
-    <div class="card text-center" style="width: 18rem;">
-      <div>
-        <img class="border w-100" src="../static/images/defaultLogo.png">
+  <div class="card pe-2" style="width: 20rem">
+      <img class="card-img-top" src="../static/images/defaultLogo.png"
+              alt="Card image cap">
+      <div class="card-block">
+          <h4 class="card-title">{{club.name}}</h4>
+          <p class="card-text">{{club.topic}}</p>
+          <a href="#" class="btn btn-primary">Join</a>
       </div>
-      <div class="card-body">
-        <h5 class="card-title">{{club.name}}</h5>
-        <p class="card-text">{{club.topic}}</p>
-      </div>
-      <div class="btn-group w-25" role="group" aria-label="Button Group">
-        <button type="button" class="btn btn-outline-primary">Join</button>
-        <button type="button" class="btn btn-outline-primary">Save</button>
-      </div>
-    </div>
   </div>
 {% endfor %}
 </div>
