@@ -58,8 +58,11 @@ def createAccount():
 
 @app.route("/hc/myProfile", methods=['GET', "POST"])
 def myAccount():
-    print("On page")
-    return render_template("/userProfile.html", currentUser=currentUser)
+    if currentUser:
+        print("On page")
+        return render_template("/userProfile.html", currentUser=currentUser)
+    else:
+        return "Access Denied"
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logOut():
