@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="landingPage">Live</a>
+          <a class="nav-link" aria-current="page" href="/home">Live</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">All Clubs</a>
@@ -32,7 +32,7 @@
           <a class="nav-link align-right" href="#">My Clubs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link align-right" href="/hc/myProfile">My Profile</a>
+          <a class="nav-link align-right active" href="/hc/myProfile">My Profile</a>
         </li>
       </ul>
       <form class="d-flex" action="/logout" method="POST">
@@ -50,11 +50,31 @@
     </h2>
     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
       <div class="accordion-body">
-        <label>Username</label>
-        <label>First Name Last Name</label>
-        <label>email</label>
-        <br>
-        <button class="align-right">Save</button>
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Email:</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{currentUser.email}}">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Name:</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{currentUser.fname}} {{currentUser.lname}}">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Username:</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{currentUser.username}}">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Change Password:</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="inputPassword">
+          </div>
+        </div>
+        <button type="button" class="btn btn-success">Save</button>
       </div>
     </div>
   </div>
@@ -78,7 +98,7 @@
     </h2>
     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
       <div class="accordion-body">
-        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+        
       </div>
     </div>
   </div>

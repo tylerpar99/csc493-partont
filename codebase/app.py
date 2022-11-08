@@ -1,5 +1,8 @@
 import os
+import PIL.Image
+import base64
 from datetime import date
+from io import BytesIO
 from flask import Flask, render_template, request, url_for, redirect, g
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
@@ -36,8 +39,49 @@ def landingPage():
         liveClubs = Club.select().where(Club.active)
         updates = Updates.select().order_by(Updates.date.desc()).get()
         lastUpdated = getTodayDifference(updates.date)
-        return render_template("landingPage.html", user=currentUser, liveClubs=liveClubs, updates=updates, lastUpdated = lastUpdated)
+        clubObjectLogo = []
+        try:
+            for club in liveClubs:
+                if club.logo:
+                    print(type(club.logo))
+                    print("Logo found")
+                    byte = BytesIO(club.logo)
+                    print("byte")
+                    img = PIL.Image.open(byte)
+                else:
+                    img = "../static/images/defaultLogo.png"
+                print("Logo Decoded")
+                object = []
+                object.append(club)
+                object.append(img)
+                clubObjectLogo.append(object)
+                print(clubObjectLogo)
+        except:
+            print("Error")
+            for club in liveClubs:
+                object = []
+                object.append(club)
+                object.append("../static/images/defaultLogo.png")
+                clubObjectLogo.append(object)
+        return render_template("landingPage.html", user=currentUser, updates=updates, lastUpdated = lastUpdated, clubObjectLogo=clubObjectLogo)
     return "Access Denied"
+
+@app.route("/myClubs", methods=['GET', 'POST'])
+def myClubs():
+    if currentUser:
+        myClubs = None
+
+        return render_template("myClubs.html")
+
+@app.route("/createClub", methods=['GET', 'POST'])
+def createClub():
+    clubData = request.form
+    print(clubData)
+    if currentUser:
+        createClub = Club.create(name=clubData.get('clubName'), topic=clubData.get('clubTopic'), logo=clubData.get('clubLogo'))
+        return redirect("/myClubs")
+    else:
+        return "Server error. User not found."
 
 @app.route("/createAccount", methods=['GET', 'POST'])
 def createAccount():
@@ -51,8 +95,6 @@ def createAccount():
             userRegister = User.create(username=data.get('uname'), fname=data.get('fname'), lname=data.get('lname'), email=data.get('email'), password=data.get('password'))
         if User.get_or_none(User.username == data.get('uname')):
             return render_template("logInPage.html")
-
-
     else:
         return render_template("registrationPage.html")
 
@@ -89,7 +131,7 @@ class User(Model):
 class Club(Model):
    name=TextField(120)
    topic=TextField(120)
-   logo=BlobField()
+   logo=BlobField(null=True)
    free=BooleanField(default=True)
    lastActive=DateTimeField()
    active=BooleanField(default=False)

@@ -29,7 +29,7 @@
           <a class="nav-link" href="#">All Clubs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link align-right" href="#">My Clubs</a>
+          <a class="nav-link align-right" href="/myClubs">My Clubs</a>
         </li>
         <li class="nav-item">
           <a class="nav-link align-right" href="/hc/myProfile">My Profile</a>
@@ -109,13 +109,12 @@
 </button>
 </div>
 <div class="row">
-{% for club in liveClubs %}
+{% for club in clubObjectLogo %}
   <div class="card pe-2" style="width: 20rem">
-      <img class="card-img-top" src="../static/images/defaultLogo.png"
-              alt="Card image cap">
+      <img class="card-img-top" src="clubObjectLogo[1]" alt="../static/images/defaultLogo.png">
       <div class="card-block">
-          <h4 class="card-title">{{club.name}}</h4>
-          <p class="card-text">{{club.topic}}</p>
+          <h4 class="card-title">{{(clubObjectLogo[0]).name}}</h4>
+          <p class="card-text">{{(clubObjectLogo[0]).topic}}</p>
           <a href="#" class="btn btn-primary">Join</a>
       </div>
   </div>
