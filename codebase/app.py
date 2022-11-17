@@ -13,6 +13,15 @@ currentUser = None
 def welcomePage():
     return render_template("index.html")
 
+def countMembers(club):
+    memberGrab = userClub.select(userClub.user).where(userClub.club == club).count()
+    print(memberGrab)
+    return memberGrab
+
+
+def checkMembership(user, club):
+    return
+
 @app.route("/loginPage", methods=['GET', 'POST'])
 def logInPage():
     if request.method == 'POST':
@@ -52,15 +61,28 @@ def landingPage():
         liveClubs = Club.select().where(Club.active)
         updates = Updates.select().order_by(Updates.date.desc()).get()
         lastUpdated = getTodayDifference(updates.date)
-        return render_template("landingPage.html", user=currentUser, updates=updates, lastUpdated = lastUpdated, liveClubs=liveClubs)
+        clubInfoArr = []
+        for club in liveClubs:
+            amount = countMembers(club.id)
+            groupInfo = [club, amount]
+            clubInfoArr.append(groupInfo)
+        return render_template("landingPage.html", user=currentUser, updates=updates, lastUpdated = lastUpdated, clubInfoArr=clubInfoArr)
     return "Access Denied"
 
 @app.route("/myClubs", methods=['GET', 'POST'])
 def myClubs():
     if currentUser:
-        myClubs = None
-
-        return render_template("myClubs.html")
+        print("User:",currentUser.id)
+        myClubs = userClub.select(userClub.club_id).where(userClub.user_id == currentUser.id)
+        clubInfoArr = []
+        for club in myClubs:
+            amount = countMembers(club.id)
+            groupInfo = [club, amount]
+            clubInfoArr.append(groupInfo)
+        print(clubInfoArr)
+        return render_template("myClubs.html", clubInfoArr=clubInfoArr)
+    else:
+        return redirect("/")
 
 @app.route("/createClub", methods=['GET', 'POST'])
 def createClub():

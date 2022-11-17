@@ -109,15 +109,15 @@
 </button>
 </div>
 <div class="row">
-{% for club in liveClubs %}
+{% for club in clubInfoArr %}
   <div class="card mt-2 me-1 ms-1" style="width: 18rem;">
     <div class="card-body">
       <form action="/joinClub" method="POST">
-        <h5 class="card-title">{{club.name}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">{{club.topic}}</p>
+        <h5 class="card-title">{{club[0].name}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Members: {{club[1]}}</h6>
+        <p class="card-text">{{club[0].topic}}</p>
         <button type="submit" class="btn btn-primary">Join</button>
-        <textarea class="form-control" name="clubId" rows="3" hidden>{{club.id}}</textarea>
+        <textarea class="form-control" name="clubId" rows="3" hidden>{{club[0].id}}</textarea>
       </form>
     </div>
   </div>
