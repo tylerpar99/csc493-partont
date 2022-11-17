@@ -1,8 +1,6 @@
 import os
-import PIL.Image
 import base64
 from datetime import date
-from io import BytesIO
 from flask import Flask, render_template, request, url_for, redirect, g
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
@@ -31,6 +29,21 @@ def logInPage():
     else:
         return render_template("logInPage.html")
 
+@app.route('/joinClub', methods=['GET', 'POST'])
+def joinClub():
+    try:
+        if currentUser:
+            joinClub = userClub.create(user=currentUser, club=request.form.get('clubId'))
+            return redirect("/home")
+    except:
+        return("Unable to join club. Who knows why?")
+
+@app.route('/enterClub', methods=['GET', 'POST'])
+def enterClub():
+    eligible = checkMembership(clubId, currentUser)
+    if eligible:
+        return render_template("clubSession.html")
+
 @app.route('/home', methods=['GET', 'POST'])
 def landingPage():
     print(currentUser)
@@ -39,31 +52,7 @@ def landingPage():
         liveClubs = Club.select().where(Club.active)
         updates = Updates.select().order_by(Updates.date.desc()).get()
         lastUpdated = getTodayDifference(updates.date)
-        clubObjectLogo = []
-        try:
-            for club in liveClubs:
-                if club.logo:
-                    print(type(club.logo))
-                    print("Logo found")
-                    byte = BytesIO(club.logo)
-                    print("byte")
-                    img = PIL.Image.open(byte)
-                else:
-                    img = "../static/images/defaultLogo.png"
-                print("Logo Decoded")
-                object = []
-                object.append(club)
-                object.append(img)
-                clubObjectLogo.append(object)
-                print(clubObjectLogo)
-        except:
-            print("Error")
-            for club in liveClubs:
-                object = []
-                object.append(club)
-                object.append("../static/images/defaultLogo.png")
-                clubObjectLogo.append(object)
-        return render_template("landingPage.html", user=currentUser, updates=updates, lastUpdated = lastUpdated, clubObjectLogo=clubObjectLogo)
+        return render_template("landingPage.html", user=currentUser, updates=updates, lastUpdated = lastUpdated, liveClubs=liveClubs)
     return "Access Denied"
 
 @app.route("/myClubs", methods=['GET', 'POST'])
@@ -76,12 +65,12 @@ def myClubs():
 @app.route("/createClub", methods=['GET', 'POST'])
 def createClub():
     clubData = request.form
-    print(clubData)
+    print(request.form.get('clubName'), clubData.get('clubData'))
     if currentUser:
-        createClub = Club.create(name=clubData.get('clubName'), topic=clubData.get('clubTopic'), logo=clubData.get('clubLogo'))
+        createClub = Club.create(name=clubData.get('clubName'), topic=clubData.get('clubTopic'))
         return redirect("/myClubs")
     else:
-        return "Server error. User not found."
+        return "Server error. Club not created."
 
 @app.route("/createAccount", methods=['GET', 'POST'])
 def createAccount():
@@ -148,7 +137,15 @@ class Updates(Model):
       database=db
       db_table='Updates'
 
+class userClub(Model):
+   user = ForeignKeyField(User, backref="users")
+   club = ForeignKeyField(Club, backref="clubs")
+   class Meta:
+      database=db
+      db_table='userClub'
+
 db.connect()
 db.create_tables([User])
 db.create_tables([Club])
 db.create_tables([Updates])
+db.create_tables([userClub])

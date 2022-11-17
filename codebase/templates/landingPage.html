@@ -109,14 +109,17 @@
 </button>
 </div>
 <div class="row">
-{% for club in clubObjectLogo %}
-  <div class="card pe-2" style="width: 20rem">
-      <img class="card-img-top" src="clubObjectLogo[1]" alt="../static/images/defaultLogo.png">
-      <div class="card-block">
-          <h4 class="card-title">{{(clubObjectLogo[0]).name}}</h4>
-          <p class="card-text">{{(clubObjectLogo[0]).topic}}</p>
-          <a href="#" class="btn btn-primary">Join</a>
-      </div>
+{% for club in liveClubs %}
+  <div class="card mt-2 me-1 ms-1" style="width: 18rem;">
+    <div class="card-body">
+      <form action="/joinClub" method="POST">
+        <h5 class="card-title">{{club.name}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">{{club.topic}}</p>
+        <button type="submit" class="btn btn-primary">Join</button>
+        <textarea class="form-control" name="clubId" rows="3" hidden>{{club.id}}</textarea>
+      </form>
+    </div>
   </div>
 {% endfor %}
 </div>
