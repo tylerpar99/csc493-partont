@@ -15,12 +15,16 @@ def welcomePage():
 
 def countMembers(club):
     memberGrab = userClub.select(userClub.user).where(userClub.club == club).count()
-    print(memberGrab)
     return memberGrab
 
 
-def checkMembership(user, club):
-    return
+def checkMembership(club, user):
+    print(user, club)
+    eligible = list(userClub.select().where(userClub.user == user & userClub.club == club))
+    if len(eligible) > 1:
+        return True
+    else:
+        return False
 
 @app.route("/loginPage", methods=['GET', 'POST'])
 def logInPage():
@@ -30,7 +34,6 @@ def logInPage():
             Userlogin = User.select().where(User.email == login.get('email'), User.password == login.get('password')).get()
             global currentUser
             currentUser = Userlogin
-            print(currentUser.fname)
             return redirect("/home")
 
         except:
@@ -49,15 +52,13 @@ def joinClub():
 
 @app.route('/enterClub', methods=['GET', 'POST'])
 def enterClub():
-    eligible = checkMembership(clubId, currentUser)
+    eligible = checkMembership(request.form.get("clubId"), currentUser)
     if eligible:
         return render_template("clubSession.html")
 
 @app.route('/home', methods=['GET', 'POST'])
 def landingPage():
-    print(currentUser)
     if currentUser:
-        print("Passed")
         liveClubs = Club.select().where(Club.active)
         updates = Updates.select().order_by(Updates.date.desc()).get()
         lastUpdated = getTodayDifference(updates.date)
@@ -72,14 +73,12 @@ def landingPage():
 @app.route("/myClubs", methods=['GET', 'POST'])
 def myClubs():
     if currentUser:
-        print("User:",currentUser.id)
-        myClubs = userClub.select(userClub.club_id).where(userClub.user_id == currentUser.id)
+        myClubs = userClub.select(userClub.club).where(userClub.user_id == currentUser.id).distinct()
         clubInfoArr = []
         for club in myClubs:
-            amount = countMembers(club.id)
-            groupInfo = [club, amount]
+            amount = countMembers(club.club)
+            groupInfo = [club.club, amount]
             clubInfoArr.append(groupInfo)
-        print(clubInfoArr)
         return render_template("myClubs.html", clubInfoArr=clubInfoArr)
     else:
         return redirect("/")
@@ -87,7 +86,6 @@ def myClubs():
 @app.route("/createClub", methods=['GET', 'POST'])
 def createClub():
     clubData = request.form
-    print(request.form.get('clubName'), clubData.get('clubData'))
     if currentUser:
         createClub = Club.create(name=clubData.get('clubName'), topic=clubData.get('clubTopic'))
         return redirect("/myClubs")
@@ -97,9 +95,7 @@ def createClub():
 @app.route("/createAccount", methods=['GET', 'POST'])
 def createAccount():
     if request.method == 'POST':
-        print("I can't believe this works!")
         data = request.form
-        print(data.get('fname'))
         if User.get_or_none(User.email == data.get('email')):
             return "User already Exists"
         else:
@@ -112,7 +108,6 @@ def createAccount():
 @app.route("/hc/myProfile", methods=['GET', "POST"])
 def myAccount():
     if currentUser:
-        print("On page")
         return render_template("/userProfile.html", currentUser=currentUser)
     else:
         return "Access Denied"

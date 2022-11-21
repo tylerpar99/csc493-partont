@@ -75,7 +75,7 @@
 {% for club in clubInfoArr %}
   <div class="card mt-2 me-1 ms-1" style="width: 18rem;">
     <div class="card-body">
-      <form action="/joinClub" method="POST">
+      <form action="/enterClub" method="POST">
         <h5 class="card-title">{{club[0].name}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">Members: {{club[1]}}</h6>
         <p class="card-text">{{club[0].topic}}</p>
